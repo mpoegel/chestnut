@@ -3,3 +3,5 @@ add_executable(chestnut
 )
 target_include_directories(chestnut PUBLIC .)
 target_link_libraries(chestnut pthread)
+
+install(TARGETS chestnut DESTINATION /opt/bin)
