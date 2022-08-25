@@ -1,0 +1,11 @@
+Source: chestnut
+Section: unknown
+Priority: optional
+Maintainer: Matt Poegel <poe@penguin>
+Build-Depends: debhelper
+Standards-Version: 4.0.0
+
+Package: chestnut
+Architecture: any
+Depends:
+Description: american chestnut trees

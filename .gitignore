@@ -1,1 +1,7 @@
 build
+
+debian/.debhelper
+debian/chestnut*
+debian/debhelper*
+debian/files
+obj-x86_64-linux-gnu
