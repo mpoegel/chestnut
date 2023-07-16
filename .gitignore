@@ -1,4 +1,6 @@
 build
+.env
+.cache
 
 debian/.debhelper
 debian/chestnut*
