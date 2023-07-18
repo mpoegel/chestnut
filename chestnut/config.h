@@ -17,6 +17,7 @@ class Config {
     std::string d_weatherLat;
     std::string d_weatherLon;
     int d_weatherDaysAhead;
+    int d_timezone;
     bool d_debug;
 
     Config() = default;
@@ -38,6 +39,7 @@ class Config {
     static const std::string weatherBaseURL();
     static const std::string weatherLat();
     static const std::string weatherLon();
+    static const int timezone();
     static const bool debug();
 
     static void reload();
@@ -50,6 +52,7 @@ inline const std::string Config::weatherAPIKey() { return singleton().d_weatherA
 inline const std::string Config::weatherBaseURL() { return singleton().d_weatherBaseURL; }
 inline const std::string Config::weatherLat() { return singleton().d_weatherLat; }
 inline const std::string Config::weatherLon() { return singleton().d_weatherLon; }
+inline const int Config::timezone() { return singleton().d_timezone; }
 inline const bool Config::debug() { return singleton().d_debug; }
 
 } // namespace chestnut

@@ -1,15 +1,18 @@
-#include "weather/weatherdatapublisher.h"
-#include <fwoop_gaugemetric.h>
-#include <fwoop_metric.h>
-#include <utility>
+#include <config.h>
 #include <weather/weatherclient.h>
+#include <weather/weatherdatapublisher.h>
 
+#include <fwoop_gaugemetric.h>
 #include <fwoop_httpclient.h>
+#include <fwoop_httpheader.h>
 #include <fwoop_httprequest.h>
 #include <fwoop_httpresponse.h>
 #include <fwoop_log.h>
+#include <fwoop_metric.h>
 
+#include <cstdint>
 #include <memory>
+#include <utility>
 
 namespace chestnut {
 
@@ -79,8 +82,11 @@ bool WeatherClient::refresh()
 void WeatherClient::setPublisher(const std::shared_ptr<Publisher> &publisher)
 {
     auto factory = WeatherDataPublisherFactory(publisher);
+    auto now = fwoop::DateTime::now();
+    now.addHours(Config::timezone());
     for (unsigned int i = 0; i <= DAYS_AHEAD; i++) {
-        fwoop::Metric::Labels_t labels = {{"days_in_future", std::to_string(i)}, {"day_of_week", DAY_OF_WEEK[i]}};
+        uint8_t dow = (now.dayOfWeek() + i) % 7;
+        fwoop::Metric::Labels_t labels = {{"days_in_future", std::to_string(i)}, {"day_of_week", DAY_OF_WEEK[dow]}};
         d_forecast.push_back(factory.newWeatherDataPublisher(labels));
     }
 }

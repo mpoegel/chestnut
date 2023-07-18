@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <chrono>
 #include <cstdint>
 #include <fwoop_datetime.h>
@@ -14,7 +15,8 @@ std::ostream &operator<<(std::ostream &os, const WeatherData &weather)
 {
     os << "[ temp=" << weather.getTemperature() << " maxTemp=" << weather.getMaxTemp()
        << " minTemp=" << weather.getMinTemp() << " feelsLike=" << weather.getFeelsLike()
-       << " humidity=" << weather.getHumidity() << " windSpeed=" << weather.getWindSpeed() << " ]";
+       << " humidity=" << weather.getHumidity() << " windSpeed=" << weather.getWindSpeed()
+       << " precipChance=" << weather.getPrecipChance() << " ]";
     return os;
 }
 
@@ -90,6 +92,11 @@ std::error_code WeatherData::parse(const fwoop::JsonObject &json, WeatherData &w
     }
     weather.d_windSpeed = windSpeed.value();
 
+    auto pop = json.getDouble("pop");
+    if (pop.has_value()) {
+        weather.d_precipChance = pop.value();
+    }
+
     return std::error_code();
 }
 
@@ -111,13 +118,13 @@ std::error_code MultiDayWeatherData::parse(const std::string &data, MultiDayWeat
             weather.d_forecast.push_back(weatherReading);
         } else {
             auto &last = weather.d_forecast[weather.d_forecast.size() - 1];
-            // last.d_temperature = std::max(last.d_temperature, weatherReading.d_temperature);
             last.d_temps.push_back(weatherReading.d_temperature);
             last.d_feelsLike = std::max(last.d_feelsLike, weatherReading.d_feelsLike);
             last.d_maxTemp = std::max(last.d_maxTemp, weatherReading.d_maxTemp);
             last.d_minTemp = std::min(last.d_minTemp, weatherReading.d_minTemp);
             last.d_humidity = std::max(last.d_humidity, weatherReading.d_humidity);
             last.d_windSpeed = std::max(last.d_windSpeed, weatherReading.d_windSpeed);
+            last.d_precipChance = std::max(last.d_precipChance, weatherReading.d_precipChance);
         }
     }
 

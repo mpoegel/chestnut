@@ -18,6 +18,7 @@ class WeatherDataPublisher {
     std::shared_ptr<fwoop::GaugeMetric> d_lowTempGauge;
     std::shared_ptr<fwoop::GaugeMetric> d_humidityGauge;
     std::shared_ptr<fwoop::GaugeMetric> d_windSpeedGauge;
+    std::shared_ptr<fwoop::GaugeMetric> d_precipChanceGauge;
     std::shared_ptr<fwoop::GaugeHistogramMetric> d_tempForecast;
 
   public:
@@ -27,6 +28,7 @@ class WeatherDataPublisher {
                          const std::shared_ptr<fwoop::GaugeMetricSeries> &lowTempSeries,
                          const std::shared_ptr<fwoop::GaugeMetricSeries> &humiditySeries,
                          const std::shared_ptr<fwoop::GaugeMetricSeries> &windSpeedSeries,
+                         const std::shared_ptr<fwoop::GaugeMetricSeries> &precipChanceSeries,
                          const std::shared_ptr<fwoop::GaugeHistogramMetricSeries> &tempForecastSeries);
     ~WeatherDataPublisher() = default;
     WeatherDataPublisher(const WeatherDataPublisher &rhs) = default;
@@ -44,6 +46,7 @@ class WeatherDataPublisherFactory {
     std::shared_ptr<fwoop::GaugeMetricSeries> d_lowTempSeries;
     std::shared_ptr<fwoop::GaugeMetricSeries> d_humiditySeries;
     std::shared_ptr<fwoop::GaugeMetricSeries> d_windSpeedSeries;
+    std::shared_ptr<fwoop::GaugeMetricSeries> d_precipChanceSeries;
     std::shared_ptr<fwoop::GaugeHistogramMetricSeries> d_tempForecastSeries;
 
   public:

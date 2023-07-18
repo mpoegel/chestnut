@@ -32,6 +32,7 @@ Config &Config::singleton()
     s_config_p->d_weatherBaseURL = loadString("WEATHER_BASE_URL");
     s_config_p->d_weatherLat = loadString("WEATHER_LAT");
     s_config_p->d_weatherLon = loadString("WEATHER_LON");
+    s_config_p->d_timezone = loadInt("WEATHER_TIMEZONE", 0);
 
     s_config_p->d_debug = loadBool("DEBUG");
 

@@ -22,6 +22,7 @@ class WeatherData {
     double d_feelsLike;
     int d_humidity;
     double d_windSpeed;
+    double d_precipChance;
 
     fwoop::DateTime d_datetime;
 
@@ -44,6 +45,8 @@ class WeatherData {
     double getFeelsLike() const;
     int getHumidity() const;
     double getWindSpeed() const;
+    double getPrecipChance() const;
+
     fwoop::DateTime getDateTime() const;
 
     friend MultiDayWeatherData;
@@ -59,6 +62,7 @@ inline double WeatherData::getMinTemp() const { return d_minTemp; }
 inline double WeatherData::getFeelsLike() const { return d_feelsLike; }
 inline int WeatherData::getHumidity() const { return d_humidity; }
 inline double WeatherData::getWindSpeed() const { return d_windSpeed; }
+inline double WeatherData::getPrecipChance() const { return d_precipChance; }
 inline fwoop::DateTime WeatherData::getDateTime() const { return d_datetime; }
 
 class MultiDayWeatherData {
