@@ -1,3 +1,9 @@
+chestnut (0.2.0) jammy; urgency=medium
+
+  * Proof of concept producing weather data
+
+ -- Matt Poegel <mpoegel@honeybee>  Sun, 23 Jul 2023 20:33:23 +0000
+
 chestnut (0.1.0) jammy; urgency=medium
 
   * Initial release
