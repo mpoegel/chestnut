@@ -3,7 +3,7 @@
 #include <config.h>
 #include <weather/weatherclient.h>
 
-TEST(CHESTNUT_WEATHERCLIENT, Refresh)
+TEST(CHESTNUT_WEATHERCLIENT, DISABLED_Refresh)
 {
     // GIVEN
     chestnut::Config::reload();

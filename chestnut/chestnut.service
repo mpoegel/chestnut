@@ -1,0 +1,17 @@
+[Unit]
+Description=Chestnut dashboard
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=chestnut
+Group=chestnut
+Type=simple
+Restart=always
+RestartSec=1
+EnvironmentFile=/etc/chestnut/chestnut.env
+ExecStart=/opt/bin/chestnut
+
+[Install]
+WantedBy=multi-user.target

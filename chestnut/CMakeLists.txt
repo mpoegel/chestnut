@@ -9,7 +9,9 @@ add_executable(chestnut
 target_include_directories(chestnut PUBLIC .)
 target_link_libraries(chestnut pthread fwoopbasis fwoophttp fwoopbasis fwoopencoding fwoopobserve)
 
-install(TARGETS chestnut DESTINATION /opt/bin)
+install(TARGETS chestnut DESTINATION opt/bin)
+install(FILES chestnut.service DESTINATION etc/systemd/system)
+install(FILES chestnut.env DESTINATION etc/chestnut)
 
 include(GoogleTest)
 add_executable(chestnut_test
@@ -26,6 +28,7 @@ add_executable(chestnut_test
     weather/weatherdatapublisher.cpp
 )
 target_include_directories(chestnut_test PUBLIC .)
-target_link_libraries(chestnut_test fwoopobserve fwoopbasis fwoophttp fwoopbasis fwoopencoding fwoopobserve gtest gtest_main pthread)
+target_link_libraries(chestnut_test fwoopobserve fwoopbasis fwoophttp fwoopbasis fwoopencoding
+    fwoopobserve gtest gtest_main pthread)
 
 gtest_add_tests(TARGET chestnut_test)
