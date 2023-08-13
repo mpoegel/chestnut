@@ -19,7 +19,7 @@ ctest
 ## Release
 ```sh
 dch -v <version> -M
-debuild -us -uc
+dpkg-buildpackge -d
 gh release create
 gh release upload <version> ../chestnut_<version>_amd64.deb ../chestnut_<version>.tar.gz ../chestnut_<version>.dsc
 dch -r

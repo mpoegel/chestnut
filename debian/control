@@ -3,6 +3,7 @@ Section: unknown
 Priority: optional
 Maintainer: Matt Poegel <poe@penguin>
 Build-Depends: debhelper
+             , cmake
 Standards-Version: 4.0.0
 
 Package: chestnut

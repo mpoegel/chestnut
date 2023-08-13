@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <string>
 
 namespace chestnut {
@@ -21,7 +22,6 @@ class Config {
     bool d_debug;
 
     Config() = default;
-    ~Config() = default;
     Config(const Config &rhs) = default;
     Config &operator=(const Config &rhs) = default;
     Config(Config &&rhs) = default;
@@ -32,6 +32,8 @@ class Config {
     static std::string loadString(const char *name, const std::string &defaultValue = "");
 
   public:
+    ~Config() = default;
+
     static const int metricsPort();
     static const int refreshInterval();
     static const bool isWeatherEnabled();
@@ -44,6 +46,8 @@ class Config {
 
     static void reload();
 };
+
+std::ostream &operator<<(std::ostream &os, Config *cfg);
 
 inline const int Config::metricsPort() { return singleton().d_metricsPort; }
 inline const int Config::refreshInterval() { return singleton().d_refreshInterval; }

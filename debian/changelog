@@ -1,3 +1,9 @@
+chestnut (0.2.1) jammy; urgency=medium
+
+  * Add config for DNS server address
+
+ -- Matt Poegel <mpoegel@honeybee>  Sun, 13 Aug 2023 15:39:10 +0000
+
 chestnut (0.2.0) jammy; urgency=medium
 
   * Proof of concept producing weather data
