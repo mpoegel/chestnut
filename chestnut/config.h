@@ -11,6 +11,8 @@ class Config {
 
     int d_metricsPort;
     int d_refreshInterval;
+    int d_httpPort;
+    std::string d_httpStaticDir;
 
     bool d_isWeatherEnabled;
     std::string d_weatherAPIKey;
@@ -36,6 +38,8 @@ class Config {
 
     static const int metricsPort();
     static const int refreshInterval();
+    static const int httpPort();
+    static const std::string httpStaticDir();
     static const bool isWeatherEnabled();
     static const std::string weatherAPIKey();
     static const std::string weatherBaseURL();
@@ -51,6 +55,8 @@ std::ostream &operator<<(std::ostream &os, Config *cfg);
 
 inline const int Config::metricsPort() { return singleton().d_metricsPort; }
 inline const int Config::refreshInterval() { return singleton().d_refreshInterval; }
+inline const int Config::httpPort() { return singleton().d_httpPort; }
+inline const std::string Config::httpStaticDir() { return singleton().d_httpStaticDir; }
 inline const bool Config::isWeatherEnabled() { return singleton().d_isWeatherEnabled; }
 inline const std::string Config::weatherAPIKey() { return singleton().d_weatherAPIKey; }
 inline const std::string Config::weatherBaseURL() { return singleton().d_weatherBaseURL; }

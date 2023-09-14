@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fwoop_httpserver.h>
 #include <memory.h>
 
 #include <memory>
@@ -13,10 +14,13 @@ class Chestnut {
   private:
     std::shared_ptr<Publisher> d_publisher;
     std::shared_ptr<WeatherClient> d_weatherClient;
+    fwoop::HttpServer d_httpServer;
     std::thread d_refreshThread;
+    std::thread d_httpThread;
     bool d_needStop;
 
     void refresh();
+    void serveHttp();
 
   public:
     Chestnut();

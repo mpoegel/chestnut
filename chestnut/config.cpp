@@ -30,6 +30,8 @@ Config &Config::singleton()
     s_config_p = new Config();
     s_config_p->d_metricsPort = loadInt("METRICS_PORT", 3003);
     s_config_p->d_refreshInterval = loadInt("REFRESH_INTERVAL", 300);
+    s_config_p->d_httpPort = loadInt("HTTP_PORT", 5050);
+    s_config_p->d_httpStaticDir = loadString("HTTP_STATIC_DIR", "static");
     s_config_p->d_isWeatherEnabled = loadBool("ENABLE_WEATHER");
     s_config_p->d_weatherAPIKey = loadString("WEATHER_API_KEY");
     s_config_p->d_weatherBaseURL = loadString("WEATHER_BASE_URL");
@@ -38,7 +40,6 @@ Config &Config::singleton()
     s_config_p->d_timezone = loadInt("WEATHER_TIMEZONE", 0);
 
     s_config_p->d_debug = loadBool("DEBUG");
-    ;
 
     auto dnsServerAddr = loadString("DNS_SERVER_ADDR", "127.0.0.1");
     fwoop::DNS::Query::ServerAddress = dnsServerAddr;

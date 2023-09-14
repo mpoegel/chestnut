@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<title>Chestnut</title>
+
+<body>
+    <div hx-ext="sse" sse-connect="/updates" id="feed">
+
+        <div class="feed-item">
+            <div id="timestamp" class="value" sse-swap="timestamp"></div>
+        </div>
+
+        <div id="feed-item-temp-today" class="feed-item">
+            <div class="feed-item">
+                <div class="label">Now</div>
+                <div class="value" sse-swap="today-temp"></div>
+            </div>
+            <div class="feed-item">
+                <div class="label">Max</div>
+                <div class="value" sse-swap="today-max"></div>
+            </div>
+            <div class="feed-item">
+                <div class="label">Min</div>
+                <div class="value" sse-swap="today-min"></div>
+            </div>
+        </div>
+
+        <div id="feed-item-wet-today" class="feed-item">
+            <div class="feed-item">
+                <div class="label">Humidity</div>
+                <div class="value" sse-swap="today-humidity"></div>
+            </div>
+            <div class="feed-item">
+                <div class="label">Precipitation Chance</div>
+                <div class="value" sse-swap="today-precip"></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script src="https://unpkg.com/htmx.org@1.9.4"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+
+
+</html>

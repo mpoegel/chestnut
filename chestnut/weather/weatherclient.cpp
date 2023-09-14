@@ -76,6 +76,7 @@ bool WeatherClient::refresh()
     for (unsigned int i = 0; i < weather.getNumDays() && i <= DAYS_AHEAD; i++) {
         d_forecast[i]->publish(weather.getDaily(i));
     }
+    d_data = weather;
     return true;
 }
 

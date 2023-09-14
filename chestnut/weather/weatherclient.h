@@ -24,7 +24,7 @@ class WeatherClient {
     const std::string d_lon;
     const std::string d_apiKey;
     Unit d_unit;
-    WeatherData d_data;
+    MultiDayWeatherData d_data;
 
     std::vector<std::shared_ptr<WeatherDataPublisher>> d_forecast;
 
@@ -42,10 +42,10 @@ class WeatherClient {
     void setUnit(Unit unit);
     void setPublisher(const std::shared_ptr<Publisher> &publisher);
 
-    const WeatherData &data() const;
+    const MultiDayWeatherData &data() const;
 };
 
 inline void WeatherClient::setUnit(Unit unit) { d_unit = unit; }
-inline const WeatherData &WeatherClient::data() const { return d_data; }
+inline const MultiDayWeatherData &WeatherClient::data() const { return d_data; }
 
 } // namespace chestnut
