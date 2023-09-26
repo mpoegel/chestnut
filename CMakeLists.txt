@@ -7,3 +7,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 enable_testing()
 add_subdirectory(chestnut)
+add_subdirectory(static)
