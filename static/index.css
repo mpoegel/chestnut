@@ -35,7 +35,8 @@ body {
 }
 
 #feed-item-temp-today .feed-item,
-#feed-item-wet-today .feed-item {
+#feed-item-wet-today .feed-item,
+#feed-item-forecast .feed-item {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -48,7 +49,8 @@ body {
     }
 
     #feed-item-temp-today,
-    #feed-item-wet-today {
+    #feed-item-wet-today,
+    #feed-item-forecast {
         display: flex;
         flex-flow: column wrap;
         justify-content: center;
