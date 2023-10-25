@@ -1,3 +1,11 @@
+chestnut (0.3.0) UNRELEASED; urgency=medium
+
+  * add POC for web UI
+  * install static directory
+  * push weather data to web
+
+ -- Matt Poegel <poe@penguin>  Wed, 25 Oct 2023 22:57:59 +0000
+
 chestnut (0.2.1) jammy; urgency=medium
 
   * Add config for DNS server address
