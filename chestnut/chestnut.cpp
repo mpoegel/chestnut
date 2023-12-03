@@ -61,7 +61,7 @@ Chestnut::Chestnut()
     : d_publisher(std::make_shared<OpenMetricsPublisher>(Config::metricsPort())),
       d_weatherClient(std::make_shared<WeatherClient>(Config::weatherBaseURL(), Config::weatherLat(),
                                                       Config::weatherLon(), Config::weatherAPIKey())),
-      d_httpServer(Config::httpPort(), fwoop::HttpVersion::Http1_1), d_needStop(false)
+      d_httpServer(Config::httpPort(), fwoop::HttpVersion::Http1_1, 50), d_needStop(false)
 {
 }
 
