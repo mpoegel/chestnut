@@ -29,7 +29,7 @@ class Chestnut {
     ~Chestnut();
     Chestnut(const Chestnut &rhs) = delete;
     Chestnut &operator=(const Chestnut &rhs) = delete;
-    Chestnut(Chestnut &&rhs) = default;
+    Chestnut(Chestnut &&rhs) = delete;
 
     int start();
     void stop();

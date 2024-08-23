@@ -41,11 +41,9 @@ Config &Config::singleton()
 
     s_config_p->d_debug = loadBool("DEBUG");
 
-    auto dnsServerAddr = loadString("DNS_SERVER_ADDR", "127.0.0.1");
-    fwoop::DNS::Query::ServerAddress = dnsServerAddr;
-
+    auto ipaddr = fwoop::DNS::Query::GetHostByName(s_config_p->d_weatherBaseURL);
+    fwoop::Log::Debug("weather IP: ", ipaddr);
     fwoop::Log::Debug("config loaded: ", s_config_p);
-    fwoop::Log::Debug("DNS_SERVER_ADDR: ", dnsServerAddr);
 
     return *s_config_p;
 }
