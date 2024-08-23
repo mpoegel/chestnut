@@ -27,8 +27,8 @@ class WeatherData {
     fwoop::DateTime d_datetime;
 
   public:
-    static std::error_code parse(const std::string &data, WeatherData &weather);
-    static std::error_code parse(const fwoop::JsonObject &json, WeatherData &weather);
+    static std::error_code parse(const std::string &data, WeatherData &weather, int timezone = 0);
+    static std::error_code parse(const fwoop::JsonObject &json, WeatherData &weather, int timezone = 0);
 
     WeatherData();
     WeatherData(const fwoop::Json &json);
@@ -70,7 +70,7 @@ class MultiDayWeatherData {
     std::vector<WeatherData> d_forecast;
 
   public:
-    static std::error_code parse(const std::string &data, MultiDayWeatherData &weather);
+    static std::error_code parse(const std::string &data, MultiDayWeatherData &weather, int timezone = 0);
 
     MultiDayWeatherData() = default;
     ~MultiDayWeatherData() = default;

@@ -20,15 +20,15 @@ std::ostream &operator<<(std::ostream &os, const WeatherData &weather)
     return os;
 }
 
-std::error_code WeatherData::parse(const std::string &data, WeatherData &weather)
+std::error_code WeatherData::parse(const std::string &data, WeatherData &weather, int timezone)
 {
     uint32_t parsedLength = 0;
     auto json = fwoop::JsonObject((uint8_t *)data.c_str(), data.length(), parsedLength);
 
-    return WeatherData::parse(json, weather);
+    return WeatherData::parse(json, weather, timezone);
 }
 
-std::error_code WeatherData::parse(const fwoop::JsonObject &json, WeatherData &weather)
+std::error_code WeatherData::parse(const fwoop::JsonObject &json, WeatherData &weather, int timezone)
 {
     auto dt = json.get<int>("dt");
     if (!dt.has_value()) {
@@ -36,6 +36,7 @@ std::error_code WeatherData::parse(const fwoop::JsonObject &json, WeatherData &w
         return std::make_error_code(std::errc::invalid_argument);
     }
     weather.d_datetime = fwoop::DateTime(dt.value());
+    weather.d_datetime.addHours(timezone);
 
     auto main = json.getObject("main");
     if (!main) {
@@ -100,7 +101,7 @@ std::error_code WeatherData::parse(const fwoop::JsonObject &json, WeatherData &w
     return std::error_code();
 }
 
-std::error_code MultiDayWeatherData::parse(const std::string &data, MultiDayWeatherData &weather)
+std::error_code MultiDayWeatherData::parse(const std::string &data, MultiDayWeatherData &weather, int timezone)
 {
     uint32_t parsedLength = 0;
     auto json = fwoop::JsonObject((uint8_t *)data.c_str(), data.length(), parsedLength);
@@ -109,7 +110,7 @@ std::error_code MultiDayWeatherData::parse(const std::string &data, MultiDayWeat
     for (unsigned int i = 0; i < list->length(); i++) {
         auto obj = list->getObject(i);
         WeatherData weatherReading;
-        auto ec = WeatherData::parse(*obj.get(), weatherReading);
+        auto ec = WeatherData::parse(*obj.get(), weatherReading, timezone);
         if (ec) {
             return ec;
         }

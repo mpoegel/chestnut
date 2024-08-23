@@ -2,6 +2,8 @@ add_executable(chestnut
     chestnut.cpp
     chestnut.m.cpp
     config.cpp
+    mta/gtfs_realtime.cpp
+    mta/mtaclient.cpp
     weather/weatherclient.cpp
     weather/weatherdata.cpp
     weather/weatherdatapublisher.cpp
@@ -17,12 +19,14 @@ include(GoogleTest)
 add_executable(chestnut_test
     chestnut.g.cpp
     config.g.cpp
+    mta/gtfs_realtime.g.cpp
     weather/weatherclient.g.cpp
     weather/weatherdata.g.cpp
     weather/weatherdatapublisher.g.cpp
 
     chestnut.cpp
     config.cpp
+    mta/gtfs_realtime.cpp
     weather/weatherclient.cpp
     weather/weatherdata.cpp
     weather/weatherdatapublisher.cpp

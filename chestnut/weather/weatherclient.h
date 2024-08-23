@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include <event_callback.h>
 #include <publisher.h>
 #include <weather/weatherdata.h>
 #include <weather/weatherdatapublisher.h>
@@ -23,6 +24,7 @@ class WeatherClient {
     const std::string d_lat;
     const std::string d_lon;
     const std::string d_apiKey;
+    int d_timezone;
     Unit d_unit;
     MultiDayWeatherData d_data;
 
@@ -31,14 +33,15 @@ class WeatherClient {
     std::string unitToString() const;
 
   public:
-    WeatherClient(const std::string &baseUrl, const std::string &lat, const std::string &lon,
-                  const std::string &apiKey);
+    WeatherClient(const std::string &baseUrl, const std::string &lat, const std::string &lon, const std::string &apiKey,
+                  int timezone = 0);
     ~WeatherClient() = default;
     WeatherClient(const WeatherClient &rhs) = default;
     WeatherClient &operator=(const WeatherClient &rhs) = delete;
     WeatherClient(WeatherClient &&rhs) = default;
 
     bool refresh();
+    bool refresh(EventCallback *callback);
     void setUnit(Unit unit);
     void setPublisher(const std::shared_ptr<Publisher> &publisher);
 

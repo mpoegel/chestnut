@@ -1,3 +1,4 @@
+#include "event_callback.h"
 #include <config.h>
 #include <weather/weatherclient.h>
 #include <weather/weatherdatapublisher.h>
@@ -17,13 +18,19 @@
 namespace chestnut {
 
 namespace {
+
 constexpr unsigned int DAYS_AHEAD = 4;
 const std::string DAY_OF_WEEK[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+const std::string DEGREE_FAHRENHEIT = "&#x2109;";
+std::string formatTemp(double temp) { return std::to_string(int(std::round(temp))) + DEGREE_FAHRENHEIT; }
+std::string formatPercent(double num) { return std::to_string(int(std::round(num))) + "%"; }
+
 } // namespace
 
 WeatherClient::WeatherClient(const std::string &baseUrl, const std::string &lat, const std::string &lon,
-                             const std::string &apiKey)
-    : d_baseUrl(baseUrl), d_lat(lat), d_lon(lon), d_apiKey(apiKey), d_unit(Unit::Imperial)
+                             const std::string &apiKey, int timezone)
+    : d_baseUrl(baseUrl), d_lat(lat), d_lon(lon), d_apiKey(apiKey), d_timezone(timezone), d_unit(Unit::Imperial)
 {
 }
 
@@ -77,6 +84,49 @@ bool WeatherClient::refresh()
         d_forecast[i]->publish(weather.getDaily(i));
     }
     d_data = weather;
+    return true;
+}
+
+bool WeatherClient::refresh(EventCallback *cb)
+{
+    if (!refresh()) {
+        return false;
+    }
+
+    auto now = fwoop::DateTime::now();
+    now.addHours(Config::timezone());
+
+    cb->pushEvent("today-temp", formatTemp(d_data.getDaily(0).getTemperature()));
+    cb->pushEvent("today-max", formatTemp(d_data.getDaily(0).getMaxTemp()));
+    cb->pushEvent("today-min", formatTemp(d_data.getDaily(0).getMinTemp()));
+    cb->pushEvent("today-humidity", std::to_string(d_data.getDaily(0).getHumidity()) + "%");
+    cb->pushEvent("today-precip", formatPercent(d_data.getDaily(0).getPrecipChance() * 100));
+    now.addDays(1);
+    cb->pushEvent("forecast-plus-1", now.dayOfWeekShortString());
+    cb->pushEvent("forecast-plus-1-temp-max", formatTemp(d_data.getDaily(1).getMaxTemp()));
+    cb->pushEvent("forecast-plus-1-temp-min", formatTemp(d_data.getDaily(1).getMinTemp()));
+    cb->pushEvent("forecast-plus-1-precip", formatPercent(d_data.getDaily(1).getPrecipChance() * 100));
+    now.addDays(1);
+    cb->pushEvent("forecast-plus-2", now.dayOfWeekShortString());
+    cb->pushEvent("forecast-plus-2-temp-max", formatTemp(d_data.getDaily(2).getMaxTemp()));
+    cb->pushEvent("forecast-plus-2-temp-min", formatTemp(d_data.getDaily(2).getMinTemp()));
+    cb->pushEvent("forecast-plus-2-precip", formatPercent(d_data.getDaily(2).getPrecipChance() * 100));
+    now.addDays(1);
+    cb->pushEvent("forecast-plus-3", now.dayOfWeekShortString());
+    cb->pushEvent("forecast-plus-3-temp-max", formatTemp(d_data.getDaily(3).getMaxTemp()));
+    cb->pushEvent("forecast-plus-3-temp-min", formatTemp(d_data.getDaily(3).getMinTemp()));
+    cb->pushEvent("forecast-plus-3-precip", formatPercent(d_data.getDaily(3).getPrecipChance() * 100));
+    now.addDays(1);
+    cb->pushEvent("forecast-plus-4", now.dayOfWeekShortString());
+    cb->pushEvent("forecast-plus-4-temp-max", formatTemp(d_data.getDaily(4).getMaxTemp()));
+    cb->pushEvent("forecast-plus-4-temp-min", formatTemp(d_data.getDaily(4).getMinTemp()));
+    cb->pushEvent("forecast-plus-4-precip", formatPercent(d_data.getDaily(4).getPrecipChance() * 100));
+    now.addDays(1);
+    cb->pushEvent("forecast-plus-5", now.dayOfWeekShortString());
+    cb->pushEvent("forecast-plus-5-temp-max", formatTemp(d_data.getDaily(5).getMaxTemp()));
+    cb->pushEvent("forecast-plus-5-temp-min", formatTemp(d_data.getDaily(5).getMinTemp()));
+    cb->pushEvent("forecast-plus-5-precip", formatPercent(d_data.getDaily(5).getPrecipChance() * 100));
+
     return true;
 }
 
